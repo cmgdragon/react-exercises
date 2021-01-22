@@ -6,6 +6,7 @@ const MemoryInitForm = ({user}) => {
 
     const [rowsValue, updateRows] = useState(4);
     const [colsValue, updateCols] = useState(4);
+    const [nickname, updateNickname] = useState('');
     const [emojiList, updateEmojiList] = useState('loading');
 
     const retrieveEmojis = event => {
@@ -16,23 +17,24 @@ const MemoryInitForm = ({user}) => {
     return (
         <> { emojiList === 'Grid too big' ? <span>Grid too big</span> :
          typeof emojiList === 'string' ?
-            <form id="init-form" onSubmit={retrieveEmojis}>
+            <form id="init-form" className={'form'} onSubmit={retrieveEmojis}>
 
-                <label htmlFor="nickname">Nickname to display</label>
-                <input type="text" id="nickname" required/>
+                <label className={'label'} htmlFor="nickname">Nickname to display</label>
+                <input className={'input'} type="text" id="nickname" required
+                onChange={e => updateNickname(e.currentTarget.value)} />
 
                 <div>
-                    <span>Select the size for the grid:</span>
-                    <label htmlFor="rows">Grid rows</label>
-                    <input type="number" id="rows" name="rows" min="2" value={rowsValue}
+                    <span className={'label'}>Select the size for the grid:</span>
+                    <label className={'label'} htmlFor="rows">Grid rows</label>
+                    <input className={'input'} type="number" id="rows" name="rows" min="2" value={rowsValue}
                         onChange={e => updateRows(e.currentTarget.value)}/>
 
-                    <label htmlFor="cols">Grid columns</label>
-                    <input type="number" id="cols" name="cols" min="2" value={colsValue}
+                    <label className={'label'} htmlFor="cols">Grid columns</label>
+                    <input className={'input'} type="number" id="cols" name="cols" min="2" value={colsValue}
                         onChange={e => updateCols(e.currentTarget.value)}/>
                 </div>
 
-                <button type="submit">Start!</button>
+                <button className={'start'} type="submit">Start!</button>
 
             </form>
             : ''}
@@ -41,7 +43,7 @@ const MemoryInitForm = ({user}) => {
                 user={user}
                 emojisNumber={emojiList.emojisNeeded}
                 emojiList={emojiList.emojiMatrix} 
-                nickname={document.getElementById("nickname").value}
+                nickname={nickname}
             />
             : ''}
         </>

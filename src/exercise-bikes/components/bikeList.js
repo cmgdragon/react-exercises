@@ -31,11 +31,16 @@ const BikeList = ({user}) => {
     }
 
     return (
-        <ul>
-            
+        <ul className={'bike-list'}>
+            <span>In real time!</span>
             { user ?
                 generateList(startTime, endTime, rentalInterval).map((rentTime, i) => 
-                    <BikeRentalTime key={i} rentTime={rentTime} user={user} userBikeStock={userBikeStock} />
+                    <BikeRentalTime 
+                        key={i} 
+                        rentTime={rentTime} 
+                        user={user} 
+                        userBikeStock={userBikeStock}
+                    />
                 )
             : ''}
     

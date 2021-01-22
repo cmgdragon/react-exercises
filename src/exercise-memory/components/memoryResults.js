@@ -18,8 +18,8 @@ const MemoryResults = ({user, errors, nickname, spentTime}) => {
 
     return (
         <>
-        <div>Errors: {errors}</div>
-        <div>Elapsed time: {spentTime}s</div>
+        <div className={'errors'}>Errors: {errors}</div>
+        <div className={'time'}>Elapsed time: {spentTime}s</div>
         <PlayersTable userMarks={userMarks} globalMarks={globalMarks} />
         </>
     )

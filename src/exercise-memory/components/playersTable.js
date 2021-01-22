@@ -1,8 +1,7 @@
 import React from 'react';
 
 const PlayersTable = ({globalMarks, userMarks}) => {
-    console.log(globalMarks, userMarks);
-    
+
     const sortByBestMark = ({errors: errorsA, spentTime: timeA}, {errors: errorsB, spentTime: timeB}) => {
 
         if (errorsA < errorsB) {
@@ -20,27 +19,28 @@ const PlayersTable = ({globalMarks, userMarks}) => {
                 return 1;
             } else return -1;
         }
-
+        
     }
-
+    
     return (
         <>
             { globalMarks !== 'loading' && userMarks !== 'loading' ?
-            <div>
-        <div>Global: {
+        <div className={'players-table'}>
+        <div className={'global'}>Best users marks: {
             Object.values(globalMarks)
+            .sort((a, b) => sortByBestMark(a, b))
             .map(({nickname, errors, spentTime}, i) => {
                 return (
-                    <div key={nickname+i}>{nickname} - {errors} - {spentTime}s</div>
+                    <div className={'personal-mark'} key={nickname+i}><b>{`${nickname} `}</b>{`=> ${errors} errors | ${spentTime}s`}</div>
                 )
             })
         }</div>
-        <div>User best marks: {
+        <div className={'personal'}>Best personal marks: {
             Object.values(userMarks)
             .sort((a, b) => sortByBestMark(a, b))
             .map(({nickname, errors, spentTime}, i) => {
                 return (
-                    <div key={nickname+i}>{nickname} - {errors} - {spentTime}s</div>
+                    <div className={'global-mark'} key={nickname+i}>{`${errors} errors | ${spentTime}s`}</div>
                 )
             })
         }</div>

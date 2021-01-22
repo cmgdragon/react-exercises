@@ -1,0 +1,107 @@
+.form {
+    margin: 2rem 0;
+
+    .label {
+        display: block;
+        margin-bottom: .2rem;
+        margin-top: 2rem;
+        font-size: 1.2rem;
+    }
+    
+    .input {
+        font-size: 1.3rem;
+        width: 30%;
+    }
+    
+    .start {
+        display: block;
+        margin: 0 auto;
+        margin-top: 2rem;
+        font-size: 1rem;
+        padding: .5rem;
+        cursor: pointer;
+    }
+}
+
+.quizz-form {
+
+    border-top: 1px solid black;
+    border-radius: 5px;
+    margin-top: 2rem;
+
+    .question {
+        font-size: 1.5rem;
+        margin: 2rem 0;
+    }
+
+}
+
+.answer {
+
+    margin: 1rem auto;
+    padding: 1rem;
+    display: table;
+    border: 1px solid rgb(35, 35, 117);
+    border-radius: 5px;
+
+    &:hover {
+        cursor: pointer;
+        border: 1px solid rgb(0, 158, 250);
+    }
+
+}
+
+.nickname, .points, .time, .errors {
+    font-size: 2rem;
+    margin: 1rem;
+}
+
+.players-table {
+    margin: 2rem;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.global {
+    font-size: 1.7rem;
+    padding: 1rem;
+}
+
+.global-mark {
+
+    font-size: 1rem;
+    margin: 1rem 0;
+    border: 1px solid rgba(128, 128, 128, 0.541);
+    padding: .5rem;
+}
+
+.personal {
+
+    font-size: 1.7rem;
+    padding: 1rem;
+
+}
+
+.personal-mark {
+
+    font-size: 1rem;
+    margin: 1rem 0;
+    border: 1px solid rgba(128, 128, 128, 0.541);
+    padding: .5rem;
+}
+
+button {
+    font-size: 1.5rem;
+    padding: .5rem;
+    margin-bottom: 2rem;
+    outline: none;
+    border: 1px solid black;    
+
+    &:hover {
+        cursor: pointer;
+        background-color: rgb(56, 55, 55);
+        color: white; 
+    }
+}

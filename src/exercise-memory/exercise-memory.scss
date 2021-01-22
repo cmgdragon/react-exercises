@@ -1,0 +1,17 @@
+.memory-cell {
+    border-radius: 4px;
+    background-position: center;
+    width: auto;
+    height: 8vw;
+    min-width: 3rem;
+    max-height: 8rem;
+    max-width: 8rem;
+    min-height: 3rem;
+    margin: .2rem;
+    width: auto;
+    flex: 1;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    transition: all .5s;
+    box-shadow: -2px 2px 2px 0px #464646c7;
+}

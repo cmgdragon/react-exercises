@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import MemoryResults from './memoryResults';
+import hiddenEmoji from '../../img/hidden.png';
+//import test from '../../img/test.svg';
 
 const MemoryGrid = ({user, emojiList, emojisNumber, nickname}) => {
 
@@ -62,6 +64,9 @@ const MemoryGrid = ({user, emojiList, emojisNumber, nickname}) => {
                 updateChosenEmojis([]);
             }, 1500);
             
+            chosenEmojis[0].style.backgroundColor = "white";
+            currentTarget.style.backgroundColor = "white";
+
         }
    
     }
@@ -93,29 +98,19 @@ const MemoryGrid = ({user, emojiList, emojisNumber, nickname}) => {
                     }}>
                         { 
                             emojiRow.map(({image, id}, emojiIndex) => { return (
-                            <div
+                            <div className={'memory-cell'}
                                 data-emoji={`emoji-${rowIndex}-${emojiIndex}`}
                                 key={id+emojiIndex}
                                 style={{
-                                    width: 'auto',
-                                    flex: '1',
-                                    border: '2px solid rgba(0,0,0,.4)',
                                     backgroundImage: `url('${
                                         chosenEmojis.some(e=> e === getEmojiFromHTML(rowIndex, emojiIndex)) || correctEmojis.some(e=> e === getEmojiFromHTML(rowIndex, emojiIndex))
-                                            ?  image : 'http://127.0.0.1:8080/hidden.png'
+                                            ? image : hiddenEmoji
                                     }')`,
-                                    backgroundRepeat: 'no-repeat',
-                                    backgroundSize: 'contain',
                                     backgroundColor: `${correctEmojis.some(e=> e === getEmojiFromHTML(rowIndex, emojiIndex)) ? 'green' : 'white'}`,
-                                    borderRadius: '4px',
-                                    backgroundPosition: 'center',
-                                    width: 'auto',
-                                    height: '8vw',
-                                    minWidth: '3rem',
-                                    maxHeight: '8rem',
-                                    maxWidth: '8rem',
-                                    minHeight: '3rem',
-                                    margin: '.2rem'
+                                    backgroundSize: `${
+                                        chosenEmojis.some(e=> e === getEmojiFromHTML(rowIndex, emojiIndex)) || correctEmojis.some(e=> e === getEmojiFromHTML(rowIndex, emojiIndex))
+                                            ?  'contain' : 'cover'
+                                    }`,
                                 }}
                                 onClick={chosenEmojis.length < 2 ? chooseEmoji : undefined}
                             >

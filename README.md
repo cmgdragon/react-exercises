@@ -1,1 +1,1 @@
-# React Exercises (WIP - Styling)
+# React Exercises

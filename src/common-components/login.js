@@ -1,6 +1,7 @@
 import React from 'react';
 import { auth, providers } from '../auth/authProviders';
 import { registerNewUser } from '../auth/registerUser';
+import googleIcon from '../img/google.svg';
 
 const Login = () => {
 
@@ -20,14 +21,16 @@ const Login = () => {
     
 
     return (
-        <>
-        <div onClick={() => signIn(providers.google)} >
-            <div>
-                <img alt="Google login" src="providers_icons/google.svg" />
+        <div className={'login-wrapper'}>
+        <span className={'dont-worry'}>Please, before start,</span>
+        <div onClick={() => signIn(providers.google)} className={`google-btn provider-btn`} >
+            <div className={`provider-icon-wrapper`}>
+                <img alt="Google login" className={`google-icon provider-icon`} src={googleIcon} />
             </div>
-            <p><b>Sign in with Google</b></p>
+            <p className={'btn-text'}><b>Sign in with Google</b></p>
         </div>
-    </>
+        <span className={'dont-worry'}>(Don't be afraid, he's already watching you anyways)</span>
+    </div>
     )
 }
 

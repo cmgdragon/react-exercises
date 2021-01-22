@@ -1,0 +1,56 @@
+.bike-list {
+    width: 50%;
+    margin: 2rem auto;
+    text-align: start;
+    list-style: none;
+}
+
+.bike-list > span {
+    margin: 2rem;
+    display: block;
+    font-size: 1.9rem;
+    text-align: center;
+}
+
+.bike-row {
+    margin: .2rem;
+    padding: .6rem .6rem .6rem 3rem;
+    background-color: white;
+
+    &:hover { 
+        cursor: pointer;
+    }
+
+    &:hover:not(.checked):not(.locked) {
+        background-color: #a0eeff;
+    }
+}
+
+.bike-time {
+    margin-left: 2rem;
+    display: flex;
+    text-align: center;
+    
+    b {
+        flex: 1;
+        margin-left: 1rem;
+
+        .clock-icon {
+            margin-right: 1rem;
+        }
+
+        .bike-icon {
+            margin-left: 1rem;
+        }
+
+    }
+
+}
+
+.locked {
+    background-color: #ff323214;
+}
+
+.checked {
+    background-color: #17ee3180;
+}

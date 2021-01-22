@@ -25,22 +25,22 @@ const PlayersTable = ({globalMarks, userMarks}) => {
     return (
         <>
             { globalMarks !== 'loading' && userMarks !== 'loading' ?
-            <div>
-        <div>Best users marks: {
+        <div className={'players-table'}>
+        <div className={'global'}>Best users marks: {
             Object.values(globalMarks)
             .sort((a, b) => sortByBestMark(a, b))
             .map(({nickname, points, spentTime}, i) => {
                 return (
-                    <div key={nickname+i}>{nickname} - {points} - {spentTime}s</div>
+                    <div className={'personal-mark'} key={nickname+i}><b>{`${nickname} `}</b>{`=> ${points}p | ${spentTime}s`}</div>
                 )
             })
         }</div>
-        <div>BEst personal mark: {
+        <div className={'personal'}>Best personal marks: {
             Object.values(userMarks)
             .sort((a, b) => sortByBestMark(a, b))
             .map(({nickname, points, spentTime}, i) => {
                 return (
-                    <div key={nickname+i}>{nickname} - {points} - {spentTime}s</div>
+                    <div className={'global-mark'} key={nickname+i}>{`${points}p | ${spentTime}s`}</div>
                 )
             })
         }</div>

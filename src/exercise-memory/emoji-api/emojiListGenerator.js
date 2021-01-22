@@ -32,7 +32,7 @@ const buildEmojiMatrix = (emojiList, rows, emojisNeeded) => {
     const { length } = emojiList;
     
     const emojisPerRow = length / rows;
-    const isRowPair = Number.isInteger(length / rows);
+    const isRowPair = Number.isInteger(emojisPerRow);
     const emojiMatrix = [];
     for (let i = 0; i < rows; i++) {
         emojiMatrix.push([]);

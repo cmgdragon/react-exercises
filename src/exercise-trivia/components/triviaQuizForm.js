@@ -54,9 +54,9 @@ const TriviaQuizForm = ({user, nickname, fullQuizObject}) => {
     return (
         <>
         { quizOrder !== 'showResults' ?
-        <div id="quiz-form">
+        <div id="quiz-form" className={'quizz-form'}>
 
-            <div>{fullQuizObject[quizOrder].question}</div>
+            <div className={'question'}>{fullQuizObject[quizOrder].question}</div>
 
             {
                 Object.entries(fullQuizObject[quizOrder].answers).filter(x => x[1] != null)
@@ -70,6 +70,7 @@ const TriviaQuizForm = ({user, nickname, fullQuizObject}) => {
 
                         return (
                             <div 
+                                className={'answer'}
                                 key={fullQuizObject[quizOrder].id+i}
                                 onClick={({currentTarget}) => canRespond ? checkAnswer(currentTarget, answerName, correctAnswer) : ''}>
                                 {answerText}
