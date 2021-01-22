@@ -1,0 +1,1 @@
+export const tags = ['Any', 'Linux', 'BASH', 'PHP', 'Docker', 'HTML', 'MySQL', 'WordPress', 'Laravel', 'Kubernetes', 'Javascript', 'DevOps'];
