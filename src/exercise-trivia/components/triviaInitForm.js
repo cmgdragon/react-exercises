@@ -5,13 +5,15 @@ import TriviaQuizForm from './triviaQuizForm';
 
 const TriviaInitForm = ({user}) => {
 
-    const tagRef = useRef(null);
+    const [tag, updateTag] = useState('');
     const [nickname, updateNickname] = useState('');
     const [fullQuizObject, updateQuizObject] = useState(null);
 
+    const changeTag = ({currentTarget}) => updateTag(currentTarget.value);
+
     const downloadQuestions = event => {
         event.preventDefault();
-        getQuestions(20, tagRef.current.value).then(res => {
+        getQuestions(3, tag).then(res => {
             updateQuizObject(res);
         });
     }
@@ -25,7 +27,7 @@ const TriviaInitForm = ({user}) => {
                 onChange={e => updateNickname(e.currentTarget.value)} />
 
                 <label className={'label'} htmlFor="tags">Select a tag</label>
-                    <select id="tags" ref={tagRef} className={'input'}>
+                    <select id="tags" className={'input'} onChange={changeTag}>
                         {
                             tags.map(tag => <option key={tag} value={tag}>{tag}</option>)
                         }
@@ -39,7 +41,8 @@ const TriviaInitForm = ({user}) => {
             <TriviaQuizForm 
                 user={user}
                 fullQuizObject={fullQuizObject} 
-                nickname={{ nickname: nickname}}
+                nickname={{nickname: nickname}}
+                tag={tag}
             />
             : ''}
         </>

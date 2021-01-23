@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import TriviaShowResults from './triviaShowResults';
 
-const TriviaQuizForm = ({ user, nickname, fullQuizObject }) => {
+const TriviaQuizForm = ({ user, nickname, fullQuizObject, tag }) => {
 
     const [quizOrder, updateOrder] = useState(0);
     const [spentTime, updateTime] = useState(0);
@@ -33,14 +33,14 @@ const TriviaQuizForm = ({ user, nickname, fullQuizObject }) => {
             markResponse(true, 1, currentTarget);
         } else {
             document.querySelector(`[data-answer=${correctName}]`)
-                .style.backgroundColor = '#6ef06e';
+                .classList = ['correct answer'];
             markResponse(false, 0, currentTarget);
         }
     }
 
     const markResponse = (isCorrect, points, currentTarget) => {
 
-        currentTarget.style.backgroundColor = isCorrect ? "#6ef06e" : "#ff3636bf";
+        currentTarget.classList = isCorrect ? ['correct answer'] : ['incorrect answer'];
 
         setTimeout(() => {
             updateResult({ ...finalResult, points: finalResult.points + points })
@@ -57,8 +57,16 @@ const TriviaQuizForm = ({ user, nickname, fullQuizObject }) => {
             { quizOrder !== 'showResults' ?
                 <div id="quiz-form" className={'quizz-form'}>
 
+                    <div className={'quiz-info'}>
+                        <span>{`| ${quizOrder +1}/20 | `}</span>
+                        <span>
+                            {
+                                fullQuizObject[quizOrder].tags.map(({name}) =>
+                                    `${name} |`)
+                            }
+                        </span>
+                    </div>
                     <div className={'question'}>{fullQuizObject[quizOrder].question}</div>
-                    {console.log(fullQuizObject[quizOrder])}
 
                     {
                         Object.entries(fullQuizObject[quizOrder].answers).filter(answer => answer[1] != null)
@@ -84,8 +92,13 @@ const TriviaQuizForm = ({ user, nickname, fullQuizObject }) => {
 
                 </div>
                 : ''}
-            { quizOrder === 'showResults' ?
-                <TriviaShowResults user={user} results={finalResult} spentTime={spentTime} />
+                { quizOrder === 'showResults' ?
+                    <TriviaShowResults 
+                        user={user} 
+                        results={finalResult} 
+                        spentTime={spentTime} 
+                        tag={!!tag ? tag : 'Any'}
+                    />
                 : ''}
         </>
     )
