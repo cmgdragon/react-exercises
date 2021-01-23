@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { tags } from '../trivia-api/tags';
 import { getQuestions } from '../trivia-api/endpoints';
 import TriviaQuizForm from './triviaQuizForm';
@@ -13,7 +13,7 @@ const TriviaInitForm = ({user}) => {
 
     const downloadQuestions = event => {
         event.preventDefault();
-        getQuestions(3, tag).then(res => {
+        getQuestions(20, tag).then(res => {
             updateQuizObject(res);
         });
     }
