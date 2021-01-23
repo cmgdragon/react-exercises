@@ -62,7 +62,7 @@ const TriviaQuizForm = ({ user, nickname, fullQuizObject, tag }) => {
                         <span>
                             {
                                 fullQuizObject[quizOrder].tags.map(({name}) =>
-                                    `${name} |`)
+                                    `${name} | `)
                             }
                         </span>
                     </div>
