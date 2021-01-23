@@ -5,7 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import AuthUserContext from './auth/authContext';
-AuthUserContext
+import './main.scss';
 
 ReactDOM.render(
     <AuthUserContext>

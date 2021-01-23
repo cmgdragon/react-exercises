@@ -2,6 +2,11 @@
 firebase.js
 src/exercise-trivia/trivia-api/api-constants.js
 
+#firebase
+.firebaserc
+firebase.json
+/.firebase
+
 # Logs
 logs
 *.log
