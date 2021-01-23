@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import TriviaShowResults from './triviaShowResults';
 
-const TriviaQuizForm = ({user, nickname, fullQuizObject}) => {
+const TriviaQuizForm = ({ user, nickname, fullQuizObject }) => {
 
     const [quizOrder, updateOrder] = useState(0);
     const [spentTime, updateTime] = useState(0);
     const [hasFinished, updateFinished] = useState(false);
-    const [finalResult, updateResult] = useState({...nickname, points: 0});
+    const [finalResult, updateResult] = useState({ ...nickname, points: 0 });
 
     let canRespond = true;
 
     useEffect(() => {
         const startQuizTime = !hasFinished && setInterval(() => {
-            updateTime(spentTime => spentTime +1);
+            updateTime(spentTime => spentTime + 1);
         }, 1000);
         return () => clearInterval(startQuizTime);
     }, [hasFinished]);
 
     const endOrContinue = () => {
-        if (quizOrder === fullQuizObject.length -1) {
+        if (quizOrder === fullQuizObject.length - 1) {
             updateFinished(true);
             updateOrder('showResults');
             return true;
@@ -44,51 +44,51 @@ const TriviaQuizForm = ({user, nickname, fullQuizObject}) => {
             canRespond = false;
 
             setTimeout(() => {
-                updateResult({...finalResult, points: finalResult.points + (points)})
+                updateResult({ ...finalResult, points: finalResult.points + (points) })
 
                 canRespond = true;
                 if (endOrContinue()) return;
                 updateOrder(quizOrder + 1);
             },
-        1500);
+                1500);
         }
     }
 
     return (
         <>
-        { quizOrder !== 'showResults' ?
-        <div id="quiz-form" className={'quizz-form'}>
+            { quizOrder !== 'showResults' ?
+                <div id="quiz-form" className={'quizz-form'}>
 
-            <div className={'question'}>{fullQuizObject[quizOrder].question}</div>
+                    <div className={'question'}>{fullQuizObject[quizOrder].question}</div>
+                    {console.log(fullQuizObject[quizOrder])}
 
-            {
-                Object.entries(fullQuizObject[quizOrder].answers).filter(x => x[1] != null)
-                    .map((answer, i) => {
+                    {
+                        Object.entries(fullQuizObject[quizOrder].answers).filter(x => x[1] != null)
+                            .map((answer, i) => {
 
-                        const answerName = answer[0];
-                        const answerText = answer[1];
-                        const correctAnswer = Object.entries(fullQuizObject[quizOrder].correct_answers).find(
-                            answer => answer[1] === 'true'
-                        )[0] || fullQuizObject[quizOrder].correct_answer;
+                                const answerName = answer[0];
+                                const answerText = answer[1];
+                                const correctAnswer = (Object.entries(fullQuizObject[quizOrder].correct_answers).find(
+                                    answer => answer[1] === 'true') || [fullQuizObject[quizOrder].correct_answer])[0];
 
-                        return (
-                            <div 
-                                data-answer={answerName}
-                                className={'answer'}
-                                key={fullQuizObject[quizOrder].id+i}
-                                onClick={({currentTarget}) => canRespond ? checkAnswer(currentTarget, answerName, correctAnswer) : ''}>
-                                {answerText}
-                            </div>
-                        )
-                    })
-            }
+                                return (
+                                    <div
+                                        data-answer={answerName}
+                                        className={'answer'}
+                                        key={fullQuizObject[quizOrder].id + i}
+                                        onClick={({ currentTarget }) => canRespond ? checkAnswer(currentTarget, answerName, correctAnswer) : ''}>
+                                        {answerText}
+                                    </div>
+                                )
+                            })
+                    }
 
 
-        </div>
-        : ''}
-        { quizOrder === 'showResults' ?
-            <TriviaShowResults user={user} results={finalResult} spentTime={spentTime} />
-        : ''}
+                </div>
+                : ''}
+            { quizOrder === 'showResults' ?
+                <TriviaShowResults user={user} results={finalResult} spentTime={spentTime} />
+                : ''}
         </>
     )
 }
