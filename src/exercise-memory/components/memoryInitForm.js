@@ -24,7 +24,7 @@ const MemoryInitForm = ({user}) => {
                 onChange={e => updateNickname(e.currentTarget.value)} />
 
                 <div>
-                    <span className={'label'}>Select the size for the grid:</span>
+                    <span className={'label grid-label'}>Select the size for the grid:</span>
                     <label className={'label'} htmlFor="rows">Grid rows</label>
                     <input className={'input'} type="number" id="rows" name="rows" min="2" value={rowsValue}
                         onChange={e => updateRows(e.currentTarget.value)}/>

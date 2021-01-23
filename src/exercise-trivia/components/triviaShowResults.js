@@ -18,9 +18,9 @@ const TriviaShowResults = ({user, results, spentTime}) => {
 
     return (
         <>
-        <div className={'nickname'}>Nickname: {results.nickname}</div>
-        <div className={'points'}>Your points: {results.points}p</div>
-        <div className={'time'}>Elapsed time: {spentTime}s</div>
+        <div className={'results'}>Nickname: {results.nickname}</div>
+        <div className={'results'}>Your points: {results.points}p</div>
+        <div className={'results'}>Elapsed time: {spentTime}s</div>
         <PlayersTable userMarks={userMarks} globalMarks={globalMarks} />
         </>
     )
