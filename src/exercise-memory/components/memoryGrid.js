@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import MemoryResults from './memoryResults';
 import hiddenEmoji from '../../img/hidden.png';
-//import test from '../../img/test.svg';
 
 const MemoryGrid = ({user, emojiList, emojisNumber, nickname}) => {
 
@@ -38,12 +37,10 @@ const MemoryGrid = ({user, emojiList, emojisNumber, nickname}) => {
     }
 
     const checkChosenEmojis = currentTarget => {
-        
-        console.log(chosenEmojis[0].style.backgroundImage, currentTarget.style.backgroundImage)
 
         if (chosenEmojis[0].style.backgroundImage === currentTarget.style.backgroundImage) {
             setTimeout(() => {
-                console.log("CORRECT")
+
                 updateCorrectEmojis([...correctEmojis, chosenEmojis[0], currentTarget]);
                 
                 if (correctEmojis.length === emojisNumber - 2) {
@@ -57,15 +54,18 @@ const MemoryGrid = ({user, emojiList, emojisNumber, nickname}) => {
 
         } else {
             setTimeout(() => {
-                console.log("INCORRECT")
+
+                chosenEmojis[0].style.backgroundColor = "#d04a4a";
+                currentTarget.style.backgroundColor = "#d04a4a";
+
+            }, 500);
+
+            setTimeout(() => {
+                chosenEmojis[0].style.backgroundColor = "white";
+                currentTarget.style.backgroundColor = "white";
                 updateErrors(errors + 1);
-                chosenEmojis[0].style.backgroundColor = "red";
-                currentTarget.style.backgroundColor = "red";
                 updateChosenEmojis([]);
             }, 1500);
-            
-            chosenEmojis[0].style.backgroundColor = "white";
-            currentTarget.style.backgroundColor = "white";
 
         }
    
@@ -79,38 +79,31 @@ const MemoryGrid = ({user, emojiList, emojisNumber, nickname}) => {
     const getEmojiFromHTML = (rowIndex, emojiIndex) => 
         document.querySelector(`[data-emoji=emoji-${rowIndex}-${emojiIndex}]`);
 
+    const emojiDisplay = (display, undisplay, rowIndex, emojiIndex) => {
+        return chosenEmojis.some(e=> e === getEmojiFromHTML(rowIndex, emojiIndex))
+         || correctEmojis.some(e=> e === getEmojiFromHTML(rowIndex, emojiIndex))
+        ? display : undisplay                              
+    }
+
     return (
         <>
         { !hasFinished ? 
-        <div style={{
-            overflow: 'auto'
-        }}>
+        <div className={'memory-table'}>
 
         { emojiList === 'loading' ? <span>Generating grid...</span> :
             emojiList.map((emojiRow, rowIndex) => {
                 return (
 
-                    <div 
-                    key={rowIndex}
-                    style={{
-                        display: 'flex',
-                        placeContent: 'center'
-                    }}>
+                    <div key={rowIndex} className={'memory-row'}>
                         { 
                             emojiRow.map(({image, id}, emojiIndex) => { return (
                             <div className={'memory-cell'}
                                 data-emoji={`emoji-${rowIndex}-${emojiIndex}`}
                                 key={id+emojiIndex}
                                 style={{
-                                    backgroundImage: `url('${
-                                        chosenEmojis.some(e=> e === getEmojiFromHTML(rowIndex, emojiIndex)) || correctEmojis.some(e=> e === getEmojiFromHTML(rowIndex, emojiIndex))
-                                            ? image : hiddenEmoji
-                                    }')`,
-                                    backgroundColor: `${correctEmojis.some(e=> e === getEmojiFromHTML(rowIndex, emojiIndex)) ? 'green' : 'white'}`,
-                                    backgroundSize: `${
-                                        chosenEmojis.some(e=> e === getEmojiFromHTML(rowIndex, emojiIndex)) || correctEmojis.some(e=> e === getEmojiFromHTML(rowIndex, emojiIndex))
-                                            ?  'contain' : 'cover'
-                                    }`,
+                                    backgroundImage: `url('${emojiDisplay(image, hiddenEmoji, rowIndex, emojiIndex)}')`,
+                                    backgroundColor: `${correctEmojis.some(e=> e === getEmojiFromHTML(rowIndex, emojiIndex)) ? '#5cc65c' : 'white'}`,
+                                    backgroundSize: `${emojiDisplay('contain', 'cover', rowIndex, emojiIndex)}`
                                 }}
                                 onClick={chosenEmojis.length < 2 ? chooseEmoji : undefined}
                             >
@@ -132,7 +125,8 @@ const MemoryGrid = ({user, emojiList, emojisNumber, nickname}) => {
             user={user} 
             nickname={nickname} 
             errors={errors} 
-            spentTime={spentTime} 
+            spentTime={spentTime}
+            emojisNumber={emojisNumber}
         /> : ''}
     </>
     )

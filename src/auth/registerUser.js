@@ -6,7 +6,7 @@ export const registerNewUser = async userId => {
     try {
         firebase.default.database()
             .ref(`users/${userId}`)
-            .set({bikes: [""], trivia: [""], memory: [""]});
+            .set({bikes: [""]});
     } catch (error) {
         console.error(error);
     }
