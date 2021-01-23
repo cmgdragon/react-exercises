@@ -53,7 +53,7 @@ const emojiPicker = (emojis, emojisNeeded, rows) => {
         const random = Math.floor(Math.abs(Math.random() * emojis.length - i));
         const emojiObj = {
             id: emojis[random].order,
-            image: emojis[random].openmoji_images.color.svg.replace(/\\/g, '/')
+            image: `https://openmoji.org/data/color/svg/${emojis[random].hexcode}.svg`
         }
         emojiList.push(emojiObj);
         emojiList.push(emojiObj);
