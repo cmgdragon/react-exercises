@@ -6,9 +6,8 @@ const TriviaQuizForm = ({ user, nickname, fullQuizObject }) => {
     const [quizOrder, updateOrder] = useState(0);
     const [spentTime, updateTime] = useState(0);
     const [hasFinished, updateFinished] = useState(false);
+    const [canRespond, updateCanRespond] = useState(true);
     const [finalResult, updateResult] = useState({ ...nickname, points: 0 });
-
-    let canRespond = true;
 
     useEffect(() => {
         const startQuizTime = !hasFinished && setInterval(() => {
@@ -26,6 +25,8 @@ const TriviaQuizForm = ({ user, nickname, fullQuizObject }) => {
     }
 
     const checkAnswer = (currentTarget, answerName, correctAnswer) => {
+
+        updateCanRespond(false)
         const correctName = correctAnswer.replace('_correct', '');
 
         if (answerName === correctName) {
@@ -33,25 +34,22 @@ const TriviaQuizForm = ({ user, nickname, fullQuizObject }) => {
         } else {
             document.querySelector(`[data-answer=${correctName}]`)
                 .style.backgroundColor = '#6ef06e';
-            markResponse(false, -1, currentTarget);
+            markResponse(false, 0, currentTarget);
         }
     }
 
     const markResponse = (isCorrect, points, currentTarget) => {
-        if (canRespond) {
 
-            currentTarget.style.backgroundColor = isCorrect ? "#6ef06e" : "#ff3636bf";
-            canRespond = false;
+        currentTarget.style.backgroundColor = isCorrect ? "#6ef06e" : "#ff3636bf";
 
-            setTimeout(() => {
-                updateResult({ ...finalResult, points: finalResult.points + (points) })
+        setTimeout(() => {
+            updateResult({ ...finalResult, points: finalResult.points + points })
 
-                canRespond = true;
-                if (endOrContinue()) return;
-                updateOrder(quizOrder + 1);
-            },
-                1500);
-        }
+            if (endOrContinue()) return;
+            updateOrder(quizOrder + 1);
+            updateCanRespond(true);
+        }, 1500);
+
     }
 
     return (
@@ -63,7 +61,7 @@ const TriviaQuizForm = ({ user, nickname, fullQuizObject }) => {
                     {console.log(fullQuizObject[quizOrder])}
 
                     {
-                        Object.entries(fullQuizObject[quizOrder].answers).filter(x => x[1] != null)
+                        Object.entries(fullQuizObject[quizOrder].answers).filter(answer => answer[1] != null)
                             .map((answer, i) => {
 
                                 const answerName = answer[0];
