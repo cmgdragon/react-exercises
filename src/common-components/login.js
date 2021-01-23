@@ -29,7 +29,7 @@ const Login = () => {
                 </div>
                 <p className={'btn-text'}><b>Sign in with Google</b></p>
             </div>
-            <span className={'dont-worry'}>(Don't be afraid, he's already watching you anyways)</span>
+            <span className={'dont-worry'}>(Don't be afraid, he's already watching you anyways 👁️)</span>
         </div>
     )
 }

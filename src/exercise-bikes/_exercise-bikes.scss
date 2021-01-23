@@ -1,8 +1,13 @@
 .bike-list {
-    width: 50%;
+    width: 60vw;
     margin: 2rem auto;
     text-align: start;
     list-style: none;
+
+    @media (max-width: 650px) {
+        width: 100%;
+    }
+
 }
 
 .bike-list > span {
