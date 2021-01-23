@@ -26,10 +26,13 @@ const TriviaQuizForm = ({user, nickname, fullQuizObject}) => {
     }
 
     const checkAnswer = (currentTarget, answerName, correctAnswer) => {
+        const correctName = correctAnswer.replace('_correct', '');
 
-        if (answerName === correctAnswer.replace('_correct', '')) {
+        if (answerName === correctName) {
             markResponse(true, 1, currentTarget);
         } else {
+            document.querySelector(`[data-answer=${correctName}]`)
+                .style.backgroundColor = '#6ef06e';
             markResponse(false, -1, currentTarget);
         }
     }
@@ -37,7 +40,7 @@ const TriviaQuizForm = ({user, nickname, fullQuizObject}) => {
     const markResponse = (isCorrect, points, currentTarget) => {
         if (canRespond) {
 
-            currentTarget.style.backgroundColor = isCorrect ? "green" : "red";
+            currentTarget.style.backgroundColor = isCorrect ? "#6ef06e" : "#ff3636bf";
             canRespond = false;
 
             setTimeout(() => {
@@ -47,7 +50,7 @@ const TriviaQuizForm = ({user, nickname, fullQuizObject}) => {
                 if (endOrContinue()) return;
                 updateOrder(quizOrder + 1);
             },
-        1000);
+        1500);
         }
     }
 
@@ -70,6 +73,7 @@ const TriviaQuizForm = ({user, nickname, fullQuizObject}) => {
 
                         return (
                             <div 
+                                data-answer={answerName}
                                 className={'answer'}
                                 key={fullQuizObject[quizOrder].id+i}
                                 onClick={({currentTarget}) => canRespond ? checkAnswer(currentTarget, answerName, correctAnswer) : ''}>

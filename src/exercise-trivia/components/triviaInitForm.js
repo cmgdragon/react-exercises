@@ -11,9 +11,8 @@ const TriviaInitForm = ({user}) => {
 
     const downloadQuestions = event => {
         event.preventDefault();
-        getQuestions(3, tagRef.current.value).then(res => {
+        getQuestions(20, tagRef.current.value).then(res => {
             updateQuizObject(res);
-            updateCanStart(true);
         });
     }
 
@@ -32,7 +31,7 @@ const TriviaInitForm = ({user}) => {
                         }
                     </select>
 
-                <input className={'start'} type="submit" value="Start!" />
+                    <button className={'start'} type="submit">Start!</button>
 
             </form>
             : ''}
