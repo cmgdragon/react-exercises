@@ -32,16 +32,18 @@ const buildEmojiMatrix = (emojiList, rows, emojisNeeded) => {
     const { length } = emojiList;
     
     const emojisPerRow = length / rows;
-    const isRowPair = Number.isInteger(emojisPerRow);
-    const emojiMatrix = [];
-    for (let i = 0; i < rows; i++) {
-        emojiMatrix.push([]);
-        let j = 0;
-        while (j <= emojisPerRow - (!isRowPair && i === 0 ? 0: 1)) {
-            emojiMatrix[i][j] = emojiList[Math.floor((i * emojisPerRow) + j)];
-            ++j;
-        }
+    const isGridPair = Number.isInteger(emojisPerRow);
+    const emojiMatrix = [[]];
+    let [row, col] = [0, 0];
+
+    for (let i = 0; i < length; i++) { 
+        emojiMatrix[row][col] = emojiList[i];
+        if (col === Math.floor(emojisPerRow) + (!isGridPair && row === 0 ? 0 : -1) ) {
+            emojiMatrix.push([]);
+            row++; col = 0;
+        } else col++;
     }
+
     return { emojiMatrix: emojiMatrix, emojisNeeded: emojisNeeded };
 }
 
@@ -59,7 +61,6 @@ const emojiPicker = (emojis, emojisNeeded, rows) => {
         emojiList.push(emojiObj);
         emojis.splice(emojis.findIndex(x => x === emojis[random]), 1);
     }
-    
     const shuffledEmojis = shuffleEmojis(emojiList);
     return buildEmojiMatrix(shuffledEmojis, rows, emojisNeeded);
 }
