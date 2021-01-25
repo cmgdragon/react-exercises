@@ -17,8 +17,7 @@ const MemoryGrid = ({user, emojiList, emojisNumber, nickname}) => {
         return () => clearInterval(startMemoryTime);
     }, [hasFinished]);
 
-    const chooseEmoji = ({currentTarget}) => {
-        const chosenEmojisNum = chosenEmojis.length;
+    const chooseEmoji = currentTarget => {
         let selected = false;
 
         if (!selected) {
@@ -27,7 +26,7 @@ const MemoryGrid = ({user, emojiList, emojisNumber, nickname}) => {
             
             selected = true;
 
-            if (chosenEmojisNum === 1) {
+            if (chosenEmojis.length === 1) {
                 setTimeout(() => {
                     checkChosenEmojis(currentTarget);
                 }, 1000);
@@ -105,9 +104,11 @@ const MemoryGrid = ({user, emojiList, emojisNumber, nickname}) => {
                                     backgroundColor: `${correctEmojis.some(e=> e === getEmojiFromHTML(rowIndex, emojiIndex)) ? '#5cc65c' : 'white'}`,
                                     backgroundSize: `${emojiDisplay('contain', 'cover', rowIndex, emojiIndex)}`
                                 }}
-                                onClick={chosenEmojis.length < 2 ? chooseEmoji : undefined}
-                            >
-            
+                                onClick={({currentTarget}) => chosenEmojis.length < 2 
+                                    && chosenEmojis[0] !== currentTarget 
+                                    && !correctEmojis.some(e=> e === currentTarget)
+                                    ? chooseEmoji(currentTarget) : undefined
+                                }>
                             </div>
                             ) })
                         }
