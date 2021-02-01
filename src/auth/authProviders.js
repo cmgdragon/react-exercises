@@ -1,5 +1,5 @@
 import * as firebase from 'firebase/app';
-import firebaseConfig from '../../firebase';
+import firebaseConfig from '../firebase';
 import 'firebase/auth';
 
 firebase.default.initializeApp(firebaseConfig);
